@@ -1,18 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to GitHub Class</title>
-    <style>
-        h1 {
-            text-align: center;
-            color: brown;
-        }
-    </style>
-</head>
-<body>
-    <h1>Hello GitHub!</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Questrial&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <h1>Weather Forecast</h1>
+    <form id="search">
+  <input type="search" id="city-input" placeholder="Search for a city">
+<button type="submit">Search</button>
+<button class="location-button" id="location-button">Locate me (℃)</button>
+</form>
+</br>
+
+    <h3>current time</h3>
+
+</br>
+
+    <div class="card main">
+      <div class="col 6">
+        <div class="card-body">
+          <div class="card london">
+            <div class="card-body">
+              <img class="londonpic" src="media/sun.svg" width="150" />
+              <h2>
+                <div><span id="searchedCity">---</span></div>
+                <span id="main-temperature">--- ℃</span></br>
+              </h2>
+                <span id="celsius" class="celsius">℃ </span><span id="split">| </span><span id="farenheit" class="farenheit">℉</span>
+              <br /><br /><br /><br /><br /><br />
+              <div id="temperature-range">Temperature range: ---</div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="card dayone">
+              <img class="picdayone" src="media/sun.svg" width="50" />
+              <h5>
+                <div>Tomorrow</div>
+                <span>22℃ - 25℃</span>
+              </h5>
+            </div>
+          </div>
+          <div class="container">
+            <div class="card daytwo">
+              <img class="picdaytwo" src="media/rain.svg" width="50" />
+              <h5>
+                <div>04/08/2021</div>
+                <span>15℃ - 18℃</span>
+              </h5>
+            </div>
+          </div>
+          <div class="container">
+            <div class="card daythree">
+              <img class="picdaythree" src="media/suncloud.svg" width="50" />
+              <h5>
+                <div>05/08/2021</div>
+                <span>19℃ - 22℃</span>
+              </h5>
+            </div>
+          </div>
+          <div class="container">
+            <div class="card dayfour">
+              <img class="picdayfour" src="media/rain.svg" width="50" />
+              <h5>
+                <div>06/08/2021</div>
+                <span>15℃ - 18℃</span>
+              </h5>
+            </div>
+          </div>
+          <div class="container">
+            <div class="card dayfive">
+              <img class="picdayfive" src="media/suncloud.svg" width="50" />
+              <h5>
+                <div>07/08/2021</div>
+                <span>19℃ - 22℃</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let now = new Date();
+      let hours = now.getHours();
+      let minutes = String(now.getMinutes()).padStart(2, "0");
+
+      let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+
+      let day = days[now.getDay()];
+      let h3 = document.querySelector("h3");
+      h3.innerHTML = `${day} | ${hours}:${minutes}`;
+
+function showTemperatureCelsius(response) {
+temperature = response.data.main.temp;
+let mainTemperature = document.querySelector("#main-temperature");
+mainTemperature.innerHTML = `${temperature} ℃`;
+}
+
+function changeDetailsCelsius(response) {
+  let humidity = response.data.main.humidity;
+  let maximumTemperature = response.data.main.temp_max;
+  let minimumTemperature = response.data.main.temp_min;
+  let temperatureRange = document.querySelector("#temperature-range")
+  temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℃ - ${maximumTemperature}℃`;
+}
+      
+function searching(event) {
+event.preventDefault();
+let searchedCity = document.querySelector("#searchedCity");
+let search = document.querySelector("#city-input");
+searchedCity.innerHTML = `${search.value}`;
+let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
+let units = "metric";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${search.value}&appid=${apiKey}&units=${units}`;
+axios.get(apiUrl).then(showTemperatureCelsius);
+axios.get(apiUrl).then(changeDetailsCelsius);
+}
+
+let search = document.querySelector("#search");
+search.addEventListener("submit", searching);
+
+function showTemperatureFarenheit(response) {
+temperature = response.data.main.temp;
+let mainTemperature = document.querySelector("#main-temperature");
+mainTemperature.innerHTML = `${temperature} ℉`;
+}
+
+function changeDetailsFarenheit(response) {
+  let humidity = response.data.main.humidity;
+  let maximumTemperature = response.data.main.temp_max;
+  let minimumTemperature = response.data.main.temp_min;
+  let temperatureRange = document.querySelector("#temperature-range")
+  temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℉ - ${maximumTemperature}℉`;
+}
+
+function calculatingFarenheit() {
+let searchedCity = document.querySelector("#searchedCity");
+let search = document.querySelector("#city-input");
+searchedCity.innerHTML = `${search.value}`;
+let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
+let units = "imperial";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${search.value}&appid=${apiKey}&units=${units}`;
+axios.get(apiUrl).then(showTemperatureFarenheit);
+axios.get(apiUrl).then(changeDetailsFarenheit);
+}
+
+let farenheit = document.querySelector("#farenheit");
+farenheit.addEventListener("click", calculatingFarenheit);
+
+let celsius = document.querySelector("#celsius");
+celsius.addEventListener("click", searching);
+
+function findCity(response) {
+  let currentCity = document.querySelector("#searchedCity");
+  let temperature = document.querySelector("#main-temperature");
+  let temperatureRange = document.querySelector("#temperature-range");
+  let maximumTemperature = response.data.main.temp_max;
+  let minimumTemperature = response.data.main.temp_min;
+  currentCity.innerHTML = response.data.name;
+  temperature.innerHTML = `${response.data.main.temp} ℃`;
+  
+  temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℃ - ${maximumTemperature}℃`;
+}
+
+function showTemperatureByLocation(position) {
+let latitude = position.coords.latitude;
+let longitude = position.coords.longitude;
+let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+axios.get(apiUrl).then(findCity);
+}
+
+function findLocation() {
+navigator.geolocation.getCurrentPosition(showTemperatureByLocation);
+}
+
+let locationButton = document.querySelector("#location-button");
+locationButton.addEventListener("click", findLocation);
+    </script>
+  </body>
 </html>
