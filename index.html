@@ -40,14 +40,16 @@
         <div class="card-body">
           <div class="card london">
             <div class="card-body">
-              <img class="londonpic" id="icon-main" src="http://openweathermap.org/img/wn/10d@2x.png" width="150" />
+              <img class="londonpic" id="icon-main" src="media/main.svg" width="150" />
               <h2>
                 <div><span id="searchedCity">---</span></div>
                 <span id="main-temperature">--- ℃</span></br>
               </h2>
                 <span id="celsius" class="celsius">℃ </span><span id="split">| </span><span id="farenheit" class="farenheit">℉</span>
               <br /><br /><br /><br /><br /><br />
+              <div id="weather-description">---</div>
               <div id="temperature-range">Temperature range: ---</div>
+              <div id="wind-speed">Wind speed: ---</div>
             </div>
           </div>
           <div class="container">
@@ -123,10 +125,14 @@ temperature = Math.round(response.data.main.temp);
 let mainTemperature = document.querySelector("#main-temperature");
 mainTemperature.innerHTML = `${temperature} ℃`;
 let icon = document.querySelector("#icon-main");
-icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`)
+icon.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 }
 
 function changeDetailsCelsius(response) {
+  let windSpeed = document.querySelector("#wind-speed")
+  let weatherDescription = document.querySelector("#weather-description")
+  weatherDescription.innerHTML = `${response.data.weather[0].description}`;
+  windSpeed.innerHTML = `${response.data.wind.speed} km/h`;
   let humidity = response.data.main.humidity;
   let maximumTemperature = Math.round(response.data.main.temp_max);
   let minimumTemperature = Math.round(response.data.main.temp_min);
@@ -153,6 +159,10 @@ function showTemperatureFarenheit(response) {
 temperature = Math.round(response.data.main.temp);
 let mainTemperature = document.querySelector("#main-temperature");
 mainTemperature.innerHTML = `${temperature} ℉`;
+let windSpeed = document.querySelector("#wind-speed")
+let weatherDescription = document.querySelector("#weather-description")
+weatherDescription.innerHTML = `${response.data.weather[0].description}`;
+windSpeed.innerHTML = `${response.data.wind.speed} mph`;
 }
 
 function changeDetailsFarenheit(response) {
