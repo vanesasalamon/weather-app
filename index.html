@@ -51,13 +51,15 @@
               <div id="wind-speed">Wind speed: ---</div>
             </div>
           </div>
-          <div class="container">
-            <div class="card dayone">
-              <img class="picdayone" src="media/sun.svg" width="50" />
-              <h5>
-                <div>Tomorrow</div>
-                <span>22℃ - 25℃</span>
-              </h5>
+          <div class="weather-forecast" id="weather-forecast"> 
+            <div class="container">
+              <div class="card dayone">
+                <img class="picdayone" src="media/sun.svg" width="50" />
+                <h5>
+                  <div>Tomorrow</div>
+                  <span>22℃ - 25℃</span>
+                </h5>
+              </div>
             </div>
           </div>
           <div class="container">
@@ -118,6 +120,28 @@
       let day = days[now.getDay()];
       let h3 = document.querySelector("h3");
       h3.innerHTML = `${day} | ${hours}:${minutes}`;
+
+function displayForecast () {
+  let forecastElement = document.querySelector("#weather-forecast");
+  let forecastHTML = `<div class="column">`;
+  let days = ["Mon", "Tue", "Wed"];
+  days.forEach(function(day) {
+    forecastHTML = forecastHTML + `<div class="container">
+                <div class="card dayone">
+                  <img class="picdayone" src="media/sun.svg" width="50" />
+                  <h5>
+                    <div>${day}</div>
+                    <span>22℃ - 25℃</span>
+                  </h5>
+                </div>
+              </div>`;
+
+  });
+  forecast = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+displayForecast();
 
 function showTemperatureCelsius(response) {
 temperature = Math.round(response.data.main.temp);

@@ -74,7 +74,7 @@ button[type="submit"] {
   margin-top: 10px;
 }
 
-.dayone {
+.weather-forecast {
   position: absolute;
   float: right;
   height: 80px;
