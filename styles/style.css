@@ -70,8 +70,8 @@ button[type="submit"] {
 .picdayfour,
 .picdayfive {
   position: absolute;
-  margin-left: 165px;
-  margin-top: 10px;
+  margin-left: 135px;
+  margin-top: -25px;
 }
 
 .weather-forecast {
