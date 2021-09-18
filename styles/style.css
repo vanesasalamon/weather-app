@@ -54,7 +54,7 @@ button[type="submit"] {
 }
 
 .london {
-  height: 450px;
+  height: 415px;
   width: 350px;
   margin: 5px 20px;
 }
@@ -80,12 +80,12 @@ button[type="submit"] {
   height: 100px;
   width: 250px;
   margin-left: 390px;
-  margin-top: -465px;
+  margin-top: -430px;
 }
 
-.dayone {
+.forecast-card {
   margin: 10px;
-  height: 80px;
+  height: 75px;
   width: 250px;
   padding: 10px;
 }
