@@ -27,7 +27,6 @@
   <input type="search" id="city-input" placeholder="Search for a city">
 <button type="submit">Search</button>
 <button class="location-button-celsius" id="location-button-celsius">Locate me (℃)</button>
-<button class="location-button-farenheit" id="location-button-farenheit">Locate me (℉)</button>
 </form>
 </br>
 
@@ -45,7 +44,7 @@
                 <div><span id="searchedCity">---</span></div>
                 <span id="main-temperature">--- ℃</span></br>
               </h2>
-                <span id="celsius" class="celsius">℃ </span><span id="split">| </span><span id="farenheit" class="farenheit">℉</span>
+                <span id="celsius" class="celsius"></span>
               <br /><br /><br /><br /><br /><br />
               <div id="weather-description">---</div>
               <div id="temperature-range">Temperature range: ---</div>
@@ -131,8 +130,8 @@ icon.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weat
 function changeDetailsCelsius(response) {
   let windSpeed = document.querySelector("#wind-speed")
   let weatherDescription = document.querySelector("#weather-description")
-  weatherDescription.innerHTML = `${response.data.weather[0].description}`;
-  windSpeed.innerHTML = `${response.data.wind.speed} km/h`;
+  weatherDescription.innerHTML = `Description: ${response.data.weather[0].description}`;
+  windSpeed.innerHTML = `Wind speed: ${response.data.wind.speed} km/h`;
   let humidity = response.data.main.humidity;
   let maximumTemperature = Math.round(response.data.main.temp_max);
   let minimumTemperature = Math.round(response.data.main.temp_min);
@@ -155,37 +154,6 @@ axios.get(apiUrl).then(changeDetailsCelsius);
 let search = document.querySelector("#search");
 search.addEventListener("submit", searching);
 
-function showTemperatureFarenheit(response) {
-temperature = Math.round(response.data.main.temp);
-let mainTemperature = document.querySelector("#main-temperature");
-mainTemperature.innerHTML = `${temperature} ℉`;
-let windSpeed = document.querySelector("#wind-speed")
-let weatherDescription = document.querySelector("#weather-description")
-weatherDescription.innerHTML = `${response.data.weather[0].description}`;
-windSpeed.innerHTML = `${response.data.wind.speed} mph`;
-}
-
-function changeDetailsFarenheit(response) {
-  let humidity = response.data.main.humidity;
-  let maximumTemperature = Math.round(response.data.main.temp_max);
-  let minimumTemperature = Math.round(response.data.main.temp_min);
-  let temperatureRange = document.querySelector("#temperature-range")
-  temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℉ - ${maximumTemperature}℉`;
-}
-
-function calculatingFarenheit() {
-let searchedCity = document.querySelector("#searchedCity");
-let search = document.querySelector("#city-input");
-searchedCity.innerHTML = `${search.value}`;
-let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
-let units = "imperial";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${search.value}&appid=${apiKey}&units=${units}`;
-axios.get(apiUrl).then(showTemperatureFarenheit);
-axios.get(apiUrl).then(changeDetailsFarenheit);
-}
-
-let farenheit = document.querySelector("#farenheit");
-farenheit.addEventListener("click", calculatingFarenheit);
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", searching);
@@ -217,32 +185,7 @@ navigator.geolocation.getCurrentPosition(showTemperatureByLocationCelsius);
 let locationButtonCelsius = document.querySelector("#location-button-celsius");
 locationButtonCelsius.addEventListener("click", findLocationCelsius);
 
-function findCityFarenheit(response) {
-  let currentCity = document.querySelector("#searchedCity");
-  let temperature = document.querySelector("#main-temperature");
-  let temperatureRange = document.querySelector("#temperature-range");
-  let maximumTemperature = response.data.main.temp_max;
-  let minimumTemperature = response.data.main.temp_min;
-  currentCity.innerHTML = response.data.name;
-  temperature.innerHTML = `${response.data.main.temp} ℉`;
-  
-  temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℉ - ${maximumTemperature}℉`;
-}
 
-function showTemperatureByLocationFarenheit(position) {
-let latitude = position.coords.latitude;
-let longitude = position.coords.longitude;
-let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=imperial`;
-axios.get(apiUrl).then(findCityFarenheit);
-}
-
-function findLocationFarenheit() {
-  navigator.geolocation.getCurrentPosition(showTemperatureByLocationFarenheit);
-}
-
-let locationButtonFarenheit = document.querySelector("#location-button-farenheit");
-locationButtonFarenheit.addEventListener("click", findLocationFarenheit);
     </script>
   </body>
 </html>
