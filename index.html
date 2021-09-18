@@ -26,7 +26,6 @@
     <form id="search">
   <input type="search" id="city-input" placeholder="Search for a city">
 <button type="submit">Search</button>
-<button class="location-button-celsius" id="location-button-celsius">Locate me (℃)</button>
 </form>
 </br>
 
@@ -39,25 +38,23 @@
         <div class="card-body">
           <div class="card london">
             <div class="card-body">
-              <img class="londonpic" id="icon-main" src="media/main.svg" width="150" />
+              <img class="londonpic" id="icon-main"/>
               <h2>
-                <div><span id="searchedCity">---</span></div>
-                <span id="main-temperature">--- ℃</span></br>
+                <div><span id="searchedCity"></span></div>
+                <span id="main-temperature"></span></br>
               </h2>
                 <span id="celsius" class="celsius"></span>
               <br /><br /><br /><br /><br /><br />
-              <div id="weather-description">---</div>
-              <div id="temperature-range">Temperature range: ---</div>
-              <div id="wind-speed">Wind speed: ---</div>
+              <div id="weather-description"></div>
+              <div id="temperature-range"></div>
+              <div id="wind-speed"></div>
             </div>
           </div>
           <div class="weather-forecast" id="weather-forecast"> 
             <div class="container">
               <div class="card forecast-card">
-                <img class="picdayone" src="media/sun.svg" width="50" />
                 <h5>
-                  <div>Tomorrow</div>
-                  <span>22℃ - 25℃</span>
+                  <div></div>
                 </h5>
               </div>
             </div>
@@ -65,7 +62,7 @@
         </div>
       </div>
     </div>
-    <a href="https://github.com/vanesasalamon/weather-app">GitHub Repository</a>
+    <span class="credits">This is <a href="https://github.com/vanesasalamon/weather-app">open-source</a> code available on GitHub. Coded by Vanesa S. </span>
     <script>
       let now = new Date();
       let hours = now.getHours();
@@ -147,54 +144,22 @@ function changeDetailsCelsius(response) {
   let temperatureRange = document.querySelector("#temperature-range")
   temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℃ - ${maximumTemperature}℃`;
 }
-      
+
+
 function searching(event) {
-event.preventDefault();
-let searchedCity = document.querySelector("#searchedCity");
-let search = document.querySelector("#city-input");
-searchedCity.innerHTML = `${search.value}`;
-let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
-let units = "metric";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${search.value}&appid=${apiKey}&units=${units}`;
-axios.get(apiUrl).then(showTemperatureCelsius);
-axios.get(apiUrl).then(changeDetailsCelsius);
+  event.preventDefault();
+  let searchedCity = document.querySelector("#searchedCity");
+  let search = document.querySelector("#city-input");
+  searchedCity.innerHTML = `${search.value}`;
+  let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${search.value}&appid=${apiKey}&units=${units}`;
+  axios.get(apiUrl).then(showTemperatureCelsius);
+  axios.get(apiUrl).then(changeDetailsCelsius);
 }
 
 let search = document.querySelector("#search");
 search.addEventListener("submit", searching);
-
-
-let celsius = document.querySelector("#celsius");
-celsius.addEventListener("click", searching);
-
-function findCity(response) {
-  let currentCity = document.querySelector("#searchedCity");
-  let temperature = document.querySelector("#main-temperature");
-  let temperatureRange = document.querySelector("#temperature-range");
-  let maximumTemperature = response.data.main.temp_max;
-  let minimumTemperature = response.data.main.temp_min;
-  currentCity.innerHTML = response.data.name;
-  temperature.innerHTML = `${response.data.main.temp} ℃`;
-  
-  temperatureRange.innerHTML = `Temperature range: ${minimumTemperature}℃ - ${maximumTemperature}℃`;
-}
-
-function showTemperatureByLocationCelsius(position) {
-let latitude = position.coords.latitude;
-let longitude = position.coords.longitude;
-let apiKey = "f2d265d56b2ea774781d6a6833201d0a";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
-axios.get(apiUrl).then(findCity);
-}
-
-function findLocationCelsius() {
-navigator.geolocation.getCurrentPosition(showTemperatureByLocationCelsius);
-}
-
-let locationButtonCelsius = document.querySelector("#location-button-celsius");
-locationButtonCelsius.addEventListener("click", findLocationCelsius);
-
-
     </script>
   </body>
 </html>

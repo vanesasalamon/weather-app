@@ -4,8 +4,7 @@ h3,
 h4,
 h5,
 h6,
-div,
-span {
+div {
   font-family: "Questrial", sans-serif;
 }
 
@@ -25,7 +24,7 @@ form {
 
 input[type="search"] {
   box-sizing: border-box;
-  width: 365px;
+  width: 605px;
 }
 
 button[type="submit"] {
@@ -62,6 +61,7 @@ button[type="submit"] {
 .londonpic {
   position: relative;
   float: right;
+  width: 100px;
 }
 
 .picdayone,
@@ -88,4 +88,9 @@ button[type="submit"] {
   height: 75px;
   width: 250px;
   padding: 10px;
+}
+
+.credits {
+  font-family: "Questrial", sans-serif;
+  margin: 20px;
 }
