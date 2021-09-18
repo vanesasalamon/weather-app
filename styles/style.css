@@ -77,44 +77,15 @@ button[type="submit"] {
 .weather-forecast {
   position: absolute;
   float: right;
-  height: 80px;
+  height: 100px;
   width: 250px;
   margin-left: 390px;
-  margin-top: -455px;
+  margin-top: -465px;
 }
 
-.daytwo {
-  position: absolute;
-  float: right;
+.dayone {
+  margin: 10px;
   height: 80px;
   width: 250px;
-  margin-left: 390px;
-  margin-top: -363px;
-}
-
-.daythree {
-  position: absolute;
-  float: right;
-  height: 80px;
-  width: 250px;
-  margin-left: 390px;
-  margin-top: -271px;
-}
-
-.dayfour {
-  position: absolute;
-  float: right;
-  height: 80px;
-  width: 250px;
-  margin-left: 390px;
-  margin-top: -179px;
-}
-
-.dayfive {
-  position: absolute;
-  float: right;
-  height: 80px;
-  width: 250px;
-  margin-left: 390px;
-  margin-top: -85px;
+  padding: 10px;
 }
